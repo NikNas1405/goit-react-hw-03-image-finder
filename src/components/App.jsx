@@ -58,31 +58,25 @@ export class App extends Component {
       this.setState(prevState => ({
         images: [...prevState.images, ...images.hits],
         totalPages: Math.floor(images.totalHits / 12),
-        page: page + 1,
         noResults: false,
       }));
     } catch (error) {
       this.setState({
-        error: `Спробуйте перезавантажити сторінку та повторити запит`,
+        error: 'Спробуйте перезавантажити сторінку та повторити запит',
       });
       return toast.error(
-        `Спробуйте перезавантажити сторінку та повторити запит`
+        'Спробуйте перезавантажити сторінку та повторити запит'
       );
     } finally {
       this.setState({ isLoading: false });
     }
   };
 
-  // handleLoadMore = () => {
-  //   this.setState(prevState => ({ page: prevState.page + 1 }));
-  //   this.setState({ loading: true });
-  // };
-
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
     this.getAskedImages();
 
-    this.setState({ noResults: false });
+    this.setState({ noResults: false, loading: true });
   };
 
   render() {
