@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Overlay, ModalBox } from './Modal.styled';
+import { Overlay, ModalBox, ModalDesc } from './Modal.styled';
 
 export class Modal extends Component {
   // Вішаємо слухач на window по натисканню клавіші при монтуванні
@@ -31,6 +31,7 @@ export class Modal extends Component {
       <Overlay class="overlay" onClick={this.handleClick}>
         <ModalBox class="modal">
           <img src={largeUrl} alt={tags} />
+          <ModalDesc>{tags}</ModalDesc>
         </ModalBox>
       </Overlay>
     );

@@ -20,3 +20,26 @@ export const ModalBox = styled.div`
   background-color: green;
   color: white;
 `;
+
+export const ModalDesc = styled.p`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto;
+  padding-right: 4px;
+
+  width: 100%;
+
+  background-color: rgba(185, 228, 201, 0.5);
+  box-shadow: 0px -2px 4px 1px rgba(0, 0, 0, 0.2),
+    0px -4px 5px 0px rgba(0, 0, 0, 0.14), 0px -1px 10px 0px rgba(0, 0, 0, 0.12);
+
+  backdrop-filter: blur(5.5px);
+
+  text-align: center;
+`;

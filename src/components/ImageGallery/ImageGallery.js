@@ -16,16 +16,25 @@ export class ImageGalleryComponent extends Component {
     searchRequest: null,
     error: null,
     status: 'idle',
-
     images: [],
-
+    value: '',
     page: 1,
     perPage: 12,
     totalPages: 0,
   };
 
+  // перевіряємо, щоб в пропсах змінився запит
+  // y static відсутній this, тому дублюємо в state - search: ''
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.value !== nextProps.value) {
+      return { page: 1, value: nextProps.value };
+    }
+    return null;
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { page, error } = this.state;
+
     const newValue = this.props.value;
     const prevValue = prevProps.value;
 
@@ -58,7 +67,6 @@ export class ImageGalleryComponent extends Component {
   };
 
   render() {
-    // const { error, status, images, page, totalPages } = this.state;
     const { error, status, totalPages, images, page } = this.state;
 
     if (status === 'idle') {

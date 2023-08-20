@@ -5,7 +5,7 @@ export const ButtonLoadMore = ({ onClickButtonLoadMore }) => {
     <Button type="button" onClick={onClickButtonLoadMore}>
       Load more
     </Button>
-  )
+  );
 };
 
 export default Button;

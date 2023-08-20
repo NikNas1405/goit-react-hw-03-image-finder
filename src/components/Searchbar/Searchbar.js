@@ -20,8 +20,12 @@ export class SearchBarComponent extends Component {
   };
 
   // Записуємо в стейт значення інпута
-  onChangeSearchBarComponent = event => {
-    this.setState({ value: event.currentTarget.value.toLowerCase() });
+  // onChangeSearchBarComponent = event => {
+  //   this.setState({ value: event.currentTarget.value.toLowerCase() });
+  // };
+
+  onChangeSearchBarComponent = ({ target: { value } }) => {
+    this.setState({ value: value.toLowerCase() });
   };
 
   // Передаємо в App значення нового value і очищуємо форму
