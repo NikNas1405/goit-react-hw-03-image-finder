@@ -55,11 +55,6 @@ export class App extends Component {
         images: [...prevState.images, ...images.hits],
         totalPages: Math.floor(images.totalHits / 12),
       }));
-
-      // this.setState(({ images, page }) => ({
-      //   images: [...images, ...hits],
-      //   // page: page + 1,
-      // }));
     } catch (error) {
       this.setState({
         error: `Спробуйте перезавантажити сторінку та повторити запит`,
