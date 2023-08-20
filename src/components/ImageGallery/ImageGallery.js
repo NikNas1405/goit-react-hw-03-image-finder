@@ -1,119 +1,24 @@
-import { Component } from 'react';
 import { ImageGallery } from './ImageGallery.styled';
 import { ImageGalleryItemComponent } from '../ImageGalleryItem/ImageGalleryItem';
-import { Loader } from '../Loader/Loader';
-
-import { ButtonLoadMore } from '../Button/Button';
-
-import { toast } from 'react-toastify';
-
-import { getAsked } from '../../utils/get-api';
 
 // import PropTypes from 'prop-types';
 
-export class ImageGalleryComponent extends Component {
-  state = {
-    searchRequest: null,
-    error: null,
-    status: 'idle',
-    images: [],
-    value: '',
-    page: 1,
-    perPage: 12,
-    totalPages: 0,
-  };
+export const ImageGalleryComponent = ({ items }) => {
+  return (
+    <ImageGallery>
+      {items.map(item => (
+        <ImageGalleryItemComponent
+          key={item.id}
+          imgUrl={item.webformatURL}
+          imgLarge={item.largeImageURL}
+          tags={item.tags}
+        ></ImageGalleryItemComponent>
+      ))}
+    </ImageGallery>
+  );
+};
 
-  // перевіряємо, щоб в пропсах змінився запит
-  // y static відсутній this, тому дублюємо в state - search: ''
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.value !== nextProps.value) {
-      return { page: 1, value: nextProps.value };
-    }
-    return null;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { page, error } = this.state;
-
-    const newValue = this.props.value;
-    const prevValue = prevProps.value;
-
-    if (prevValue !== newValue || prevState.page !== page) {
-      this.setState({ status: 'pending' });
-      if (error) {
-        this.setState({ error: null });
-      }
-
-      getAsked(newValue, page)
-        .then(images => {
-          if (images.hits.length === 0) {
-            this.setState({
-              noResults: true,
-              loading: false,
-            });
-            return;
-          }
-
-          this.setState(prevState => ({
-            images:
-              page === 1 ? images.hits : [...prevState.images, ...images.hits],
-            status: 'resolved',
-            totalPages: Math.floor(images.totalHits / 12),
-          }));
-        })
-        .catch(error => {
-          return (
-            toast.error(
-              `Спробуйте перезавантажити сторінку та повторити запит`
-            ),
-            this.setState({
-              error,
-              status: 'rejected',
-            })
-          );
-        });
-    }
-  }
-
-  handleLoadMore = () => {
-    this.setState(prevState => ({ page: prevState.page + 1 }));
-  };
-
-  render() {
-    const { error, status, totalPages, images, page } = this.state;
-
-    if (status === 'idle') {
-      return <div>Введіть пошуковий запит</div>;
-    }
-
-    if (status === 'pending') {
-      return <Loader />;
-    }
-
-    if (status === 'rejected') {
-      return toast.info(
-        `${error.message}. Спробуйте перезавантажити сторінку та повторити запит`
-      );
-    }
-
-    if (status === 'resolved') {
-      return (
-        <>
-          <ImageGallery>
-            {images.map(item => (
-              <ImageGalleryItemComponent
-                key={item.id}
-                imgUrl={item.webformatURL}
-                imgLarge={item.largeImageURL}
-                tags={item.tags}
-              ></ImageGalleryItemComponent>
-            ))}
-          </ImageGallery>
-          {images.length > 0 && status !== 'pending' && page <= totalPages && (
-            <ButtonLoadMore onClickButtonLoadMore={this.handleLoadMore} />
-          )}
-        </>
-      );
-    }
-  }
-}
+// ImageGallery.propTypes = {
+//   items: PropTypes.array.isRequired,
+//   getItemClick: PropTypes.func.isRequired,
+// };

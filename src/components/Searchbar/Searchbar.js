@@ -15,34 +15,34 @@ import PropTypes from 'prop-types';
 
 export class SearchBarComponent extends Component {
   state = {
-    value: '',
+    textForSearch: '',
   };
 
   // Записуємо в стейт значення інпута
-  // onChangeSearchBarComponent = event => {
-  //   this.setState({ value: event.currentTarget.value.toLowerCase() });
-  // };
-
-  onChangeSearchBarComponent = ({ target: { value } }) => {
-    this.setState({ value: value.toLowerCase() });
+  onChangeSearchBarComponent = event => {
+    this.setState({ textForSearch: event.currentTarget.value.toLowerCase() });
   };
 
   // Передаємо в App значення нового value і очищуємо форму
   onSubmitSearchBarComponent = event => {
     event.preventDefault();
 
-    if (this.state.value.trim() === '') {
+    const { textForSearch } = this.state;
+    const { onSubmit } = this.props;
+
+    if (textForSearch.trim() === '') {
       return toast.error('Please enter key words for search');
     }
 
-    this.props.onSubmitApp(this.state.value);
+    onSubmit(textForSearch);
+
     this.setState({
-      value: '',
+      textForSearch: '',
     });
   };
 
   render() {
-    const { value } = this.state;
+    const { textForSearch } = this.state;
     return (
       <Searchbar className="searchbar">
         <SearchForm className="form" onSubmit={this.onSubmitSearchBarComponent}>
@@ -56,7 +56,7 @@ export class SearchBarComponent extends Component {
             autoFocus
             placeholder="Search images and photos"
             onChange={this.onChangeSearchBarComponent}
-            value={value}
+            value={textForSearch}
           />
         </SearchForm>
       </Searchbar>
