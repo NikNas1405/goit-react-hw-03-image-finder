@@ -46,6 +46,14 @@ export class ImageGalleryComponent extends Component {
 
       getAsked(newValue, page)
         .then(images => {
+          if (images.hits.length === 0) {
+            this.setState({
+              noResults: true,
+              loading: false,
+            });
+            return;
+          }
+
           this.setState(prevState => ({
             images:
               page === 1 ? images.hits : [...prevState.images, ...images.hits],
@@ -54,10 +62,15 @@ export class ImageGalleryComponent extends Component {
           }));
         })
         .catch(error => {
-          return this.setState({
-            error,
-            status: 'rejected',
-          });
+          return (
+            toast.error(
+              `Спробуйте перезавантажити сторінку та повторити запит`
+            ),
+            this.setState({
+              error,
+              status: 'rejected',
+            })
+          );
         });
     }
   }

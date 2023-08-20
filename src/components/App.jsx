@@ -10,6 +10,11 @@ import { ImageGalleryComponent } from './ImageGallery/ImageGallery';
 export class App extends Component {
   state = {
     textForSearch: '',
+
+    // images: [],
+    // page: 1,
+    // loading: false,
+    // noResults: false,
   };
 
   handleSearchSubmit = textForSearch => {
@@ -25,10 +30,8 @@ export class App extends Component {
         <SearchBarComponent onSubmitApp={this.handleSearchSubmit} />
         <ImageGalleryComponent value={textForSearch} />
         <ToastContainer autoClose={2000} />
-
         <GlobalStyle />
       </div>
     );
   }
 }
-
