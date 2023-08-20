@@ -89,7 +89,9 @@ export class App extends Component {
         {error}
         <ImageGalleryComponent items={images} />
         {isLoading && <Loader />}
-        {noResults && <div>За вашим запитом нічого не знайдено</div>}
+        {noResults && !isLoading && (
+          <div>За вашим запитом нічого не знайдено</div>
+        )}
         {images.length !== 0 && page <= totalPages && (
           <ButtonLoadMore onClickButtonLoadMore={this.handleLoadMore} />
         )}
