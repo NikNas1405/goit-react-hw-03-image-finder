@@ -58,7 +58,8 @@ export class ImageGalleryComponent extends Component {
   };
 
   render() {
-    const { error, status, images, page, totalPages } = this.state;
+    // const { error, status, images, page, totalPages } = this.state;
+    const { error, status, totalPages, images, page } = this.state;
 
     if (status === 'idle') {
       return <div>Введіть пошуковий запит</div>;

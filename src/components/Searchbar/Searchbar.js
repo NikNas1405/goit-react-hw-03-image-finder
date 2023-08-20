@@ -24,10 +24,6 @@ export class SearchBarComponent extends Component {
     this.setState({ value: event.currentTarget.value.toLowerCase() });
   };
 
-  //   onChangeSearchBarComponent = ({ target: { value } }) => {
-  //     this.setState({ value: value.toLowerCase() });
-  //   };
-
   // Передаємо в App значення нового value і очищуємо форму
   onSubmitSearchBarComponent = event => {
     event.preventDefault();
@@ -37,7 +33,9 @@ export class SearchBarComponent extends Component {
     }
 
     this.props.onSubmitApp(this.state.value);
-    this.setState({ value: '' });
+    this.setState({
+      value: '',
+    });
   };
 
   render() {

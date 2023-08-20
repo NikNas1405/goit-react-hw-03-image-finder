@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 import { GlobalStyle } from './GlobalStyle';
 
 import { SearchBarComponent } from './Searchbar/Searchbar';
 import { ImageGalleryComponent } from './ImageGallery/ImageGallery';
 
 export class App extends Component {
-  state = { textForSearch: '' };
+  state = {
+    textForSearch: '',
+  };
 
   handleSearchSubmit = textForSearch => {
-    this.setState({ textForSearch });
+    this.setState({
+      textForSearch,
+    });
   };
 
   render() {
@@ -28,3 +31,4 @@ export class App extends Component {
     );
   }
 }
+

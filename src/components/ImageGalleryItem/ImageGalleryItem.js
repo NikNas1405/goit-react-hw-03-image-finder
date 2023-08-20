@@ -20,18 +20,6 @@ export class ImageGalleryItemComponent extends Component {
     }));
   };
 
-  // openModal = () => {
-  //   this.setState({
-  //     showModal: true,
-  //   });
-  // };
-
-  // closeModal = () => {
-  //   this.setState({
-  //     showModal: false,
-  //   });
-  // };
-
   render() {
     const { imgUrl, imgLarge, tags } = this.props;
     const { showModal } = this.state;
@@ -40,7 +28,6 @@ export class ImageGalleryItemComponent extends Component {
       <ImageGalleryItem className="gallery-item">
         <ImageGalleryItemImage
           onClick={this.toogleModal}
-          // onClick={this.openModal}
           src={imgUrl}
           alt={tags}
           width="240"
@@ -52,7 +39,6 @@ export class ImageGalleryItemComponent extends Component {
             tags={tags}
             showModal={this.state.showModal}
             onClick={this.toogleModal}
-            // onClick={this.closeModal}
           />
         )}
       </ImageGalleryItem>
