@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
-import { SearchBarComponent } from './Searchbar/Searchbar';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { GlobalStyle } from './GlobalStyle';
 
-export class App extends Component {
-  // state = { textForSearch: '' };
+import { SearchBarComponent } from './Searchbar/Searchbar';
+import { ImageGalleryComponent } from './ImageGallery/ImageGallery';
 
-  handleSearchSubmit(textForSearch) {
-    // this.setState({ textForSearch });
-    console.log(textForSearch);
-  }
+export class App extends Component {
+  state = { textForSearch: '' };
+
+  handleSearchSubmit = textForSearch => {
+    this.setState({ textForSearch });
+    // console.log(textForSearch);
+  };
 
   render() {
-    // const { textSearch } = this.state;
+    const { textForSearch } = this.state;
     return (
       <div>
         <SearchBarComponent onSubmitApp={this.handleSearchSubmit} />
+        <ImageGalleryComponent value={textForSearch} />
+        <ToastContainer autoClose={2000} />
         <GlobalStyle />
       </div>
     );
