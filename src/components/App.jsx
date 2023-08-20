@@ -16,11 +16,9 @@ export class App extends Component {
     images: [],
     textForSearch: '',
     page: 1,
-    perPage: 12,
-    largeImage: '',
     error: null,
-    isModalOpen: false,
     isLoading: false,
+    totalPages: 0,
   };
 
   handleSearchSubmit = textForSearch => {
@@ -55,6 +53,7 @@ export class App extends Component {
 
       this.setState(prevState => ({
         images: [...prevState.images, ...images.hits],
+        totalPages: Math.floor(images.totalHits / 12),
       }));
 
       // this.setState(({ images, page }) => ({
@@ -79,7 +78,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoading, error } = this.state;
+    const { images, isLoading, error, totalPages, page } = this.state;
 
     return (
       <div>
@@ -87,9 +86,10 @@ export class App extends Component {
         {error}
         <ImageGalleryComponent items={images} />
         {isLoading && <Loader />}
-        {images.length !== 0 && (
+        {images.length !== 0 && page <= totalPages && (
           <ButtonLoadMore onClickButtonLoadMore={this.handleLoadMore} />
         )}
+
         <ToastContainer autoClose={2000} />
         <GlobalStyle />
       </div>
