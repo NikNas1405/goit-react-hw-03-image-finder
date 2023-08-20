@@ -5,7 +5,7 @@ import { Loader } from '../Loader/Loader';
 
 import { ButtonLoadMore } from '../Button/Button';
 
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { getAsked } from '../../utils/get-api';
 
@@ -49,8 +49,6 @@ export class ImageGalleryComponent extends Component {
             error,
             status: 'rejected',
           });
-          //   toast.info(
-          //     'Sorry. There are no images matching your search query. Please try again.'
         });
     }
   }
@@ -71,7 +69,9 @@ export class ImageGalleryComponent extends Component {
     }
 
     if (status === 'rejected') {
-      return <div>{error.message}</div>;
+      return toast.info(
+        `${error.message}. Спробуйте перезавантажити сторінку та повторити запит`
+      );
     }
 
     if (status === 'resolved') {
@@ -81,16 +81,11 @@ export class ImageGalleryComponent extends Component {
             {images.map(item => (
               <ImageGalleryItemComponent
                 key={item.id}
-                item={item}
-                //   getItemClick={getItemClick}
+                imgUrl={item.webformatURL}
+                imgLarge={item.largeImageURL}
+                tags={item.tags}
               ></ImageGalleryItemComponent>
             ))}
-
-            {/* {images.length > 0 &&
-              status !== 'pending' &&
-              page <= totalPages && (
-                <ButtonLoadMore onClickButtonLoadMore={this.handleLoadMore} />
-              )} */}
           </ImageGallery>
           {images.length > 0 && status !== 'pending' && page <= totalPages && (
             <ButtonLoadMore onClickButtonLoadMore={this.handleLoadMore} />

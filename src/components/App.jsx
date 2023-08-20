@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 import { GlobalStyle } from './GlobalStyle';
 
 import { SearchBarComponent } from './Searchbar/Searchbar';
@@ -12,7 +13,6 @@ export class App extends Component {
 
   handleSearchSubmit = textForSearch => {
     this.setState({ textForSearch });
-    // console.log(textForSearch);
   };
 
   render() {
@@ -22,6 +22,7 @@ export class App extends Component {
         <SearchBarComponent onSubmitApp={this.handleSearchSubmit} />
         <ImageGalleryComponent value={textForSearch} />
         <ToastContainer autoClose={2000} />
+
         <GlobalStyle />
       </div>
     );
