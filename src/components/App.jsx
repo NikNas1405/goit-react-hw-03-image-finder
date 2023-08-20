@@ -19,6 +19,8 @@ export class App extends Component {
     error: null,
     isLoading: false,
     totalPages: 0,
+
+    noResults: false,
   };
 
   handleSearchSubmit = textForSearch => {
@@ -47,6 +49,8 @@ export class App extends Component {
       if (images.hits.length === 0) {
         this.setState({
           isLoading: false,
+
+          noResults: true,
         });
         return;
       }
@@ -55,6 +59,7 @@ export class App extends Component {
         images: [...prevState.images, ...images.hits],
         totalPages: Math.floor(images.totalHits / 12),
         page: page + 1,
+        noResults: false,
       }));
     } catch (error) {
       this.setState({
@@ -76,10 +81,13 @@ export class App extends Component {
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
     this.getAskedImages();
+
+    this.setState({ noResults: false });
   };
 
   render() {
-    const { images, isLoading, error, totalPages, page } = this.state;
+    const { images, isLoading, error, totalPages, page, noResults } =
+      this.state;
 
     return (
       <div>
@@ -87,6 +95,7 @@ export class App extends Component {
         {error}
         <ImageGalleryComponent items={images} />
         {isLoading && <Loader />}
+        {noResults && <div>За вашим запитом нічого не знайдено</div>}
         {images.length !== 0 && page <= totalPages && (
           <ButtonLoadMore onClickButtonLoadMore={this.handleLoadMore} />
         )}
