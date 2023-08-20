@@ -54,6 +54,7 @@ export class App extends Component {
       this.setState(prevState => ({
         images: [...prevState.images, ...images.hits],
         totalPages: Math.floor(images.totalHits / 12),
+        page: page + 1,
       }));
     } catch (error) {
       this.setState({
@@ -67,9 +68,14 @@ export class App extends Component {
     }
   };
 
+  // handleLoadMore = () => {
+  //   this.setState(prevState => ({ page: prevState.page + 1 }));
+  //   this.setState({ loading: true });
+  // };
+
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
-    this.setState({ loading: true });
+    this.getAskedImages();
   };
 
   render() {
