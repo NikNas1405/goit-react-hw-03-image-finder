@@ -18,7 +18,3 @@ export const ImageGalleryComponent = ({ items }) => {
   );
 };
 
-// ImageGallery.propTypes = {
-//   items: PropTypes.array.isRequired,
-//   getItemClick: PropTypes.func.isRequired,
-// };

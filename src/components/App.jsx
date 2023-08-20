@@ -61,11 +61,8 @@ export class App extends Component {
         noResults: false,
       }));
     } catch (error) {
-      this.setState({
-        error: 'Спробуйте перезавантажити сторінку та повторити запит',
-      });
       return toast.error(
-        'Спробуйте перезавантажити сторінку та повторити запит'
+        'Something went wrong. Please refresh page or try again after some time.'
       );
     } finally {
       this.setState({ isLoading: false });
@@ -87,10 +84,15 @@ export class App extends Component {
       <div>
         <SearchBarComponent onSubmit={this.handleSearchSubmit} />
         {error}
+
+        {!page && <div>Let's start the searching.</div>}
         <ImageGalleryComponent items={images} />
         {isLoading && <Loader />}
         {noResults && !isLoading && (
-          <div>За вашим запитом нічого не знайдено</div>
+          <div>
+            Nothing was found for your search query. Please, try with another
+            one.
+          </div>
         )}
         {images.length !== 0 && page <= totalPages && (
           <ButtonLoadMore onClickButtonLoadMore={this.handleLoadMore} />
