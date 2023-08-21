@@ -23,17 +23,16 @@ export class App extends Component {
     noResults: false,
   };
 
-  handleSearchSubmit = textForSearch => {
-    this.setState({
-      textForSearch,
-      images: [],
-      page: 1,
-    });
-  };
-
   // Якщо оновився стейт рендеримо картинки
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.textForSearch !== this.state.textForSearch) {
+    if (
+      prevState.textForSearch !== this.state.textForSearch ||
+      prevState.page !== this.state.page
+    ) {
+      this.setState({
+        noResults: false,
+        loading: true,
+      });
       this.getAskedImages();
     }
   }
@@ -49,7 +48,6 @@ export class App extends Component {
       if (images.hits.length === 0) {
         this.setState({
           isLoading: false,
-
           noResults: true,
         });
         return;
@@ -69,11 +67,16 @@ export class App extends Component {
     }
   };
 
+  handleSearchSubmit = textForSearch => {
+    this.setState({
+      textForSearch,
+      images: [],
+      page: 1,
+    });
+  };
+
   handleLoadMore = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
-    this.getAskedImages();
-
-    this.setState({ noResults: false, loading: true });
   };
 
   render() {
